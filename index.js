@@ -5,6 +5,7 @@ const axios = require('axios');
 const superagent = require('superagent');
 const request = require('request');
 const fetch = require('node-fetch');
+const Bluebird = require('bluebird');
 
 const nock = require('nock');
 const HOST = 'test-perf';
@@ -76,6 +77,26 @@ suite.add('node-fetch GET request', {
 
 suite.add('node-fetch POST request', {
     defer: true,
+    fn: (defer) => {
+        fetch(`http://${HOST}/test`, { method: 'POST' }).then(() => { defer.resolve(); })
+    }
+});
+
+suite.add('node-fetch GET request (Bluebird)', {
+    defer: true,
+    onStart: () => {
+        fetch.Promise = Bluebird;
+    },
+    fn: (defer) => {
+        fetch(`http://${HOST}/test`, { method: 'GET' }).then(() => { defer.resolve(); })
+    }
+});
+
+suite.add('node-fetch POST request (Bluebird)', {
+    defer: true,
+    onStart: () => {
+        fetch.Promise = Bluebird;
+    },
     fn: (defer) => {
         fetch(`http://${HOST}/test`, { method: 'POST' }).then(() => { defer.resolve(); })
     }
