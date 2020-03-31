@@ -6,6 +6,7 @@ I needed to find an HTTP client library for server-side work, with a balance bet
 
 ## Installation
 
+After cloning this repo, run the following:
 ```
 $ npm install
 ```
