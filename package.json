@@ -1,6 +1,6 @@
 {
   "name": "http-libraries-perf-test",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Compare node.js http libraries performance",
   "main": "index.js",
   "scripts": {
