@@ -1,15 +1,18 @@
-var http = require('http');
-var axios = require('axios');
-var superagent = require('superagent');
-var request = require('request');
+'use strict';
 
-var nock = require('nock');
-var HOST = 'test-perf';
+const http = require('http');
+const axios = require('axios');
+const superagent = require('superagent');
+const request = require('request');
+const fetch = require('node-fetch');
+
+const nock = require('nock');
+const HOST = 'test-perf';
 
 axios.defaults.baseURL = `http://${HOST}`;
 
-var Benchmark = require('benchmark');
-var suite = new Benchmark.Suite;
+const Benchmark = require('benchmark');
+const suite = new Benchmark.Suite;
 
 nock('http://test-perf').persist()
     // .log(console.log)
@@ -61,6 +64,20 @@ suite.add('superagent POST request', {
     defer: true,
     fn: (defer) => {
         superagent.post(`http://${HOST}/test`).send().end(() => defer.resolve());
+    }
+});
+
+suite.add('node-fetch GET request', {
+    defer: true,
+    fn: (defer) => {
+        fetch(`http://${HOST}/test`, { method: 'GET' }).then(() => { defer.resolve(); })
+    }
+});
+
+suite.add('node-fetch POST request', {
+    defer: true,
+    fn: (defer) => {
+        fetch(`http://${HOST}/test`, { method: 'POST' }).then(() => { defer.resolve(); })
     }
 });
 
