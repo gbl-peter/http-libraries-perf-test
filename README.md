@@ -4,9 +4,6 @@ My results:
 ```bash
 $ npm start
 
-> http-libraries-perf-test@0.0.1 start /Users/peter.kingsbury/Development/http-libraries-perf-test
-> node index.js
-
 http.request POST request x 26,818 ops/sec ±12.45% (76 runs sampled)
 http.request GET request x 29,370 ops/sec ±3.70% (81 runs sampled)
 axios GET request x 7,947 ops/sec ±8.36% (76 runs sampled)
